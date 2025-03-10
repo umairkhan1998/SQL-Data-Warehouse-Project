@@ -1,4 +1,10 @@
-#crm
+CREATE OR ALTER PROCEDURE bronze.load_bronze AS
+BEGIN
+
+PRINT '*******************';
+PRINT 'Loading Bronze Layer CRM';
+PRINT '*******************';
+
 TRUNCATE TABLE bronze.crm_cust_info;
 
 BULK INSERT bronze.crm_cust_info
@@ -9,7 +15,6 @@ WITH(
 	TABLOCK
 );
 
-GO
 TRUNCATE TABLE bronze.crm_prd_info;
 
 BULK INSERT bronze.crm_prd_info
@@ -21,7 +26,6 @@ WITH(
     TABLOCK
 );
 
-GO
 
 
 TRUNCATE TABLE bronze.crm_sales_details;
@@ -34,14 +38,13 @@ WITH(
     FIELDTERMINATOR = ',',
     TABLOCK
 );
-GO
-  
-# ERP
-  
-CREATE OR ALTER PROCEDURE bronze.load_bronze AS
-BEGIN
-TRUNCATE TABLE bronze.erp_cust_az12;
 
+
+
+PRINT '==================';
+PRINT 'Loading Bronze Layer ERP';
+PRINT '==================';
+TRUNCATE TABLE bronze.erp_cust_az12;
 BULK INSERT bronze.erp_cust_az12
 FROM 'C:\Users\umair\OneDrive\Desktop\warhouse\datasets\source_erp\CUST_AZ12.csv'
 WITH(
@@ -50,7 +53,6 @@ FIRSTROW = 2,
 FIELDTERMINATOR = ',',
 TABLOCK);
 
-GO
 
 TRUNCATE TABLE bronze.erp_loc_a101;
 
@@ -62,8 +64,6 @@ FIRSTROW = 2,
 FIELDTERMINATOR = ',',
 TABLOCK);
 
-GO
-
 TRUNCATE TABLE bronze.erp_px_cat_g1v2;
 
 BULK INSERT bronze.erp_px_cat_g1v2
@@ -73,7 +73,5 @@ WITH(
 FIRSTROW = 2,
 FIELDTERMINATOR = ',',
 TABLOCK);
+
 END
-
-
-
